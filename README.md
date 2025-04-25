@@ -1,6 +1,6 @@
 # Macro Demographics
 
-A global dashboard for visualizing demographic structures
+A global dashboard for visualizing demographic structures, built with Next.js, Tailwind, and Supabase
 
 This tool helps macro analysts:
 - See color-coded world maps by demographic shape and dividend phase
@@ -8,21 +8,22 @@ This tool helps macro analysts:
 - View trade signals with positioning suggestions (long FX, bonds, equities, or avoid)
 - Sort and filter all countries based on signal strength, policy quality, and risk
 
+[Visit the live app here](https://macro-demographics.vercel.app/)
+
+
+
 ## Stack
 
-Built with:
-- Next.js (App Router, TypeScript)
-- TailwindCSS + Shadcn UI
-- Zustand (global state)
-- React Query (data fetching and caching)
-- Lucide, Tailwind Variants, CVA
+**Framework:** Next.js (App Router, Typescript)
+**Styling:** Tailwind CSS, Shadcn
+**State Management:** Zustand
+**Data Fetching:** React Query
+**Testing:** Vitest, React Testing Library, Playwright
+**Icons & Toasts:** Lucide, Sonner
+**Deployment:** Vercel
 
-## Getting Started
 
-Clone the repo and install dependencies:
 
-```bash
-git clone git@github.com:jamesonashile/macro-demographics.git
-cd macro-demographics
-npm install
-npm run dev
+## 👨‍💻 Author
+
+Built by [James Onashile] — full project planning, design, and execution.
