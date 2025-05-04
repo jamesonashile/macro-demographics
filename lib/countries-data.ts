@@ -1,8 +1,26 @@
-export const countries = [
+type PhaseColours = {
+    "Pre-Dividend": string
+    "Peak Dividend": string
+    "Post-Dividend": string
+    "Dividend Collapse": string
+
+}
+
+type Phase = keyof PhaseColours
+
+export type Country = {
+    name: string
+    code: string
+    dividendPhase: Phase
+    demographicShape: string
+    policyScore: number
+}
+
+export const countries: Country[] = [
     {
         name: "United States",
         code: "US",
-        dividendPhase: "Contracting Pillar",
+        dividendPhase: "Post-Dividend",
         demographicShape: "Barrel",
         policyScore: 7.5
     },
@@ -30,7 +48,7 @@ export const countries = [
     {
         name: "India",
         code: "IN",
-        dividendPhase: "Entering Dividend",
+        dividendPhase: "Pre-Dividend",
         demographicShape: "Stationary Column",
         policyScore: 4
     }
