@@ -3,7 +3,8 @@
 import CountryHoverCard from "@/components/CountryHoverCard";
 import { useState } from "react";
 import { countries } from "@/lib/countries-data";
-import { ClipboardX } from "lucide-react";
+import CountryPanelModal from "./CountryPanelModal";
+
 
 type HoverCardProps = {
   x: number;
@@ -15,8 +16,10 @@ type HoverCardProps = {
 
 export default function WorldMap() {
   const [hovered, setHovered] = useState<null | HoverCardProps>(null);
+  const [activeCountry, setActiveCountry] = useState<null | typeof countries[0]>(null)
 
   return (
+    <>
     <svg
       viewBox="0 0 800 400"
       xmlns="http://www.w3.org/2000/svg"
@@ -32,6 +35,7 @@ export default function WorldMap() {
             cy={cy}
             r={20}
             fill={"#ccc"}
+            onClick={()=> setActiveCountry(country)}
             onMouseEnter={() =>
               setHovered({
                 x: cx,
@@ -47,7 +51,10 @@ export default function WorldMap() {
           </circle>
         );
       })}
+
+
       {hovered && (
+        
         <CountryHoverCard
           x={hovered.x}
           y={hovered.y}
@@ -56,6 +63,21 @@ export default function WorldMap() {
           policyScore={hovered.policyScore}
         />
       )}
+
+      
+
     </svg>
+        {activeCountry && (
+            <CountryPanelModal
+                open={!!activeCountry}
+                onOpenChange={(open)=> !open && setActiveCountry(null)}
+                name={activeCountry.name}
+                code={activeCountry.code}
+                phase={activeCountry.dividendPhase}
+                shape={activeCountry.demographicShape}
+                policyScore={activeCountry.policyScore}
+            />
+          )}
+</>
   );
 }
