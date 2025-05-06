@@ -4,6 +4,9 @@ import CountryHoverCard from "@/components/CountryHoverCard";
 import { useState } from "react";
 import { countries } from "@/lib/countries-data";
 import CountryPanelModal from "./CountryPanelModal";
+import { useCountryStore } from "@/store/useCountryStore";
+
+
 
 
 type HoverCardProps = {
@@ -16,7 +19,7 @@ type HoverCardProps = {
 
 export default function WorldMap() {
   const [hovered, setHovered] = useState<null | HoverCardProps>(null);
-  const [activeCountry, setActiveCountry] = useState<null | typeof countries[0]>(null)
+  const {activeCountry, setActiveCountry} = useCountryStore()
 
   return (
     <>

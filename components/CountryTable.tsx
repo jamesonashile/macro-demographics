@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
-
 import { countries } from "@/lib/countries-data";
+import { useCountryStore } from "@/store/useCountryStore";
+
 
 export default function CountryTable() {
 
-  const [selectedPhase, setSelectedPhase] = useState<string | null>(null);
+  const { selectedPhase, setSelectedPhase } = useCountryStore();
 
   const dividend = [
     "Pre-Dividend",
