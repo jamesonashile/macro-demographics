@@ -22,11 +22,11 @@ export default function WorldMap() {
   const visibleCountries = selectedPhase ? countries.filter((c)=> c.dividendPhase === selectedPhase) : countries
 
   return (
-    
+    <div className="w-full overflow-x-auto">
     <svg
       viewBox="0 0 800 400"
       xmlns="http://www.w3.org/2000/svg"
-      className="w-full h-[400px] bg-slate-100"
+      className="w-full h-auto max-w-full bg-slate-100"
     >
       {visibleCountries.map((country, index) => {
         const cx = 100 + index * 100;
@@ -69,5 +69,7 @@ export default function WorldMap() {
             />
           )}
 </svg>
+
+    </div>
   )
 }

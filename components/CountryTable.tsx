@@ -8,38 +8,18 @@ export default function CountryTable() {
 
   const { selectedPhase, setSelectedPhase } = useCountryStore();
 
-  const dividend = [
-    "Pre-Dividend",
-    "Peak Dividend",
-    "Post-Dividend",
-    "Dividend Collapse",
-  ]
+
 
   const filteredCountries = selectedPhase ? countries.filter((c)=> c.dividendPhase === selectedPhase) : countries
 
 
   return (
-    <>
-      {/* <div className="mb-4 flex flex-wrap gap-2">
-        {dividend.map((phase) => (
-          <button
-            key={phase}
-            className={`px-4 py2 rounded border ${
-              selectedPhase === phase ? "bg-blue-600 text-white" : "bg-white"
-            }`}
-            onClick={() =>
-              setSelectedPhase(phase === selectedPhase ? null : phase)
-            }
-          >
-            {phase}
-          </button>
-        ))}
-      </div> */}
-<div className="p-4">
+   
+<div className="overflow-x-auto p-4 sm:p-6">
       <label className="block mb-2">
         Filter by Phase:
         <select
-        className="ml-2 border px-2 py1"
+        className="w-full sm:w-60 ml-2 border px-2 py1"
         value={selectedPhase || ""}
         onChange={(e)=> setSelectedPhase(e.target.value || null)}
         >
@@ -93,6 +73,6 @@ export default function CountryTable() {
           </tbody>
         </table>
       </div>
-    </>
+    
   );
 }
