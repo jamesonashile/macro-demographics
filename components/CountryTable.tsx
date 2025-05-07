@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { countries } from "@/lib/countries-data";
 import { useCountryStore } from "@/store/useCountryStore";
 
@@ -21,7 +20,7 @@ export default function CountryTable() {
 
   return (
     <>
-      <div className="mb-4 flex flex-wrap gap-2">
+      {/* <div className="mb-4 flex flex-wrap gap-2">
         {dividend.map((phase) => (
           <button
             key={phase}
@@ -35,9 +34,24 @@ export default function CountryTable() {
             {phase}
           </button>
         ))}
-      </div>
+      </div> */}
+<div className="p-4">
+      <label className="block mb-2">
+        Filter by Phase:
+        <select
+        className="ml-2 border px-2 py1"
+        value={selectedPhase || ""}
+        onChange={(e)=> setSelectedPhase(e.target.value || null)}
+        >
+          <option>All</option>
+          <option>Pre-Dividend</option>
+          <option>Peak Dividend</option>
+          <option>Post-Dividend</option>
+          <option>Dividend Collapse</option>
+        </select>
+      </label>
 
-      <div className="overflow-x-auto">
+      
         <table className="min-w-full border-collapse border border-gray-300">
           <thead>
             <tr className="bg-gray-100">
