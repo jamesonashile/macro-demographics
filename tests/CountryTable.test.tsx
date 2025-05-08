@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import CountryTable from "@/components/CountryTable";
 import { describe, it, expect } from "vitest";
+import React from "react";
 
 describe("CountryTable", ()=>{
     it("renders country names", ()=>{

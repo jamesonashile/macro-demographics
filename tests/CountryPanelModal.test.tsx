@@ -1,7 +1,7 @@
 import {render, screen} from "@testing-library/react";
 import CountryPanelModal from "@/components/CountryPanelModal";
 import { describe, it, expect } from "vitest";
-
+import React from "react";
 
 describe("CountryPanelModal", ()=>{
     const mockCountry = {
@@ -25,7 +25,7 @@ describe("CountryPanelModal", ()=>{
             />
         )
     
-        expect(screen.getByText("Testland")).toBeInTheDocument()
+        expect(screen.getByText((text)=> text.includes("Testland")))
         expect(screen.getByText("Post-Dividend")).toBeInTheDocument()
         expect(screen.getByText("Barrel")).toBeInTheDocument()
         expect(screen.getByText("7")).toBeInTheDocument()

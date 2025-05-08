@@ -1,6 +1,7 @@
 import {render, screen} from "@testing-library/react";
 import WorldMap from "@/components/WorldMap";
 import { describe, it, expect } from "vitest";
+import React from "react";
 
 describe("WorldMap", ()=> {
     it("renders without crashing", ()=> {

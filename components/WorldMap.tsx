@@ -1,5 +1,7 @@
 "use client"
 
+import React from 'react';
+
 import { useState } from "react";
 import { countries } from "@/lib/countries-data";
 import { useCountryStore } from "@/store/useCountryStore";
@@ -33,6 +35,7 @@ export default function WorldMap() {
         const cy = 200;
         return (
           <circle
+            role="img"
             key={country.code}
             cx={cx}
             cy={cy}
