@@ -1,10 +1,19 @@
 "use client"
 
-import {alerts} from "@/lib/alerts-data"
-import { useAlertStore } from "@/store/useAlertStore"
 import {useState} from "react"
+
+import type { Alert } from "@/types/alert"
+
+import {alerts} from "@/lib/alerts-data"
+import { countries } from "@/lib/countries-data"
+
+import { useAlertStore } from "@/store/useAlertStore"
+import { useCountryStore } from "@/store/useCountryStore"
+
 import AlertCard from "@/components/AlertCard"
 import AlertModal from "@/components/AlertModal"
+
+
 
 const signalTypes = [
     "Population Decline",
@@ -17,8 +26,19 @@ const signalTypes = [
 export default function AlertList(){
     const [activeAlert, setActiveAlert] = useState<null | typeof alerts[0]>(null)
     const {selectedSignal, setSelectedSignal} = useAlertStore()
+    const {setActiveCountry} = useCountryStore()
+    
 
     const filteredAlerts = selectedSignal ? alerts.filter((a) => a.signalType === selectedSignal) : alerts
+
+    const handleAlertClick = (alert: Alert) => {
+        const match = countries.find((c) => c.code === alert.countryCode)
+
+        if (match){
+            setActiveCountry(match)
+            setActiveAlert(alert)
+        }
+    }
     
     return (
         <>
@@ -36,7 +56,7 @@ export default function AlertList(){
         </div>
         <div className="space-y-2">
             {filteredAlerts.map(alert=>(
-                <div key={alert.id} onClick={()=> setActiveAlert(alert)} className="cursor-pointer">
+                <div key={alert.id} onClick={()=> handleAlertClick(alert)} className="cursor-pointer">
                     <AlertCard alert={alert}/>
                 </div>
             ))}

@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { Country } from "@/lib/countries-data";
 
-type CountryStore = {
+export type CountryStore = {
   activeCountry: Country | null;
   setActiveCountry: (country: Country | null) => void;
 
