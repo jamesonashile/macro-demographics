@@ -1,3 +1,5 @@
+import React from "react"
+
 import { Alert } from "@/types/alert";
 
 type AlertCardProps = {

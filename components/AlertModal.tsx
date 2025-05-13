@@ -1,5 +1,7 @@
 "use client"
 
+import React from "react"
+
 import {Alert} from "@/types/alert"
 import {Dialog, DialogContent, DialogHeader, DialogTitle} from "@/components/ui/dialog"
 
