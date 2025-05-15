@@ -1,1 +1,0 @@
-export type SignalType = "populationDecline" | "energyCrunch" | "debtSpike";

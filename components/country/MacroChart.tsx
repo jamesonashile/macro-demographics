@@ -11,7 +11,7 @@ import {
 } from "recharts";
 
 import { countrySignals } from "@/lib/signal-data";
-import type {SignalType} from "@/types/signals"
+import type {SignalType} from "@/types/signal"
 
 type MacroChartProps = {
     countryCode: string;
