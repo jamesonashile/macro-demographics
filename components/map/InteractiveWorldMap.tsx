@@ -11,6 +11,10 @@ import React, { useState } from "react";
 
 import { phaseColours } from "@/lib/mapColours";
 import { countries } from "@/lib/countries-data";
+import { geoCentroid } from "d3-geo";
+import type {Feature} from "geojson";
+
+
 
 const geoUrl = "/geo/countries.geojson";
 
@@ -19,15 +23,16 @@ type Props = {
   selectedCode?: string;
 };
 
-type GeoFeature = {
+type GeoFeature = Feature;
+
+/*type GeoFeature = {
   rsmKey: string;
   properties: {
     "ISO3166-1-Alpha-2": string;
     [key: string]: unknown;
   };
   [key: string]: unknown;
-};
-
+};*/
 export default function InteractiveWorldMap({ onCountryClick }: Props) {
   const [position, setPosition] = useState({ coordinates: [0, 0], zoom: 1 });
 
@@ -78,6 +83,8 @@ export default function InteractiveWorldMap({ onCountryClick }: Props) {
           <Geographies geography={geoUrl}>
             {({ geographies }: { geographies: GeoFeature[] }) =>
               geographies.map((geo) => {
+                if(!geo.properties) return null;
+
                 const code = geo.properties["ISO3166-1-Alpha-2"];
                 const country = countries.find((c) => c.code === code);
                 const phase = country?.dividendPhase;
@@ -89,9 +96,16 @@ export default function InteractiveWorldMap({ onCountryClick }: Props) {
 
                 return (
                   <Geography
-                    key={geo.rsmKey}
+                    key={geo.properties["ISO3166-1-Alpha-2"]}
                     geography={geo}
-                    onClick={() => onCountryClick?.(code)}
+                    onClick={() => {
+                      onCountryClick?.(code);
+
+                      const centroid = geoCentroid(geo);
+                      if (centroid && centroid.length ===2){
+                        setPosition({ coordinates: centroid as [number, number], zoom:4 });
+                      }
+                    }}
                     className="transition-all duration-200"
                     style={{
                       default: {
