@@ -9,7 +9,10 @@ import {
 
 import React, { useState } from "react";
 
-const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
+import { phaseColours } from "@/lib/mapColours";
+import { countries } from "@/lib/countries-data";
+
+const geoUrl = "/geo/countries.geojson";
 
 type Props = {
   onCountryClick?: (countryCode: string) => void;
@@ -19,16 +22,13 @@ type Props = {
 type GeoFeature = {
   rsmKey: string;
   properties: {
-    ISO_A2: string;
+    "ISO3166-1-Alpha-2": string;
     [key: string]: unknown;
   };
   [key: string]: unknown;
 };
 
-export default function InteractiveWorldMap({
-  onCountryClick,
-  selectedCode,
-}: Props) {
+export default function InteractiveWorldMap({ onCountryClick }: Props) {
   const [position, setPosition] = useState({ coordinates: [0, 0], zoom: 1 });
 
   const handleZoomIn = () => {
@@ -78,8 +78,14 @@ export default function InteractiveWorldMap({
           <Geographies geography={geoUrl}>
             {({ geographies }: { geographies: GeoFeature[] }) =>
               geographies.map((geo) => {
-                const code = geo.properties.ISO_A2;
-                const isSelected = code === selectedCode;
+                const code = geo.properties["ISO3166-1-Alpha-2"];
+                const country = countries.find((c) => c.code === code);
+                const phase = country?.dividendPhase;
+                const fill = phase
+                  ? phaseColours[phase] ?? "#e5e7eb"
+                  : "e5e7eb";
+
+                  
 
                 return (
                   <Geography
@@ -89,15 +95,15 @@ export default function InteractiveWorldMap({
                     className="transition-all duration-200"
                     style={{
                       default: {
-                        fill: isSelected ? "#0284c7" : "#e2e8f0",
+                        fill,
                         outline: "none",
                       },
                       hover: {
-                        fill: "#0ea5e9",
+                        fill,
                         outline: "none",
                       },
                       pressed: {
-                        fill: "#0369a1",
+                        fill,
                         outline: "none",
                       },
                     }}
