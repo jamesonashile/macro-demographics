@@ -3,14 +3,14 @@ import path from "path";
 
 
 export default defineConfig({
-    test: {
-        globals:true,
-        environment: 'jsdom',
-        setupFiles: './vitest.setup.ts'
+  test: {
+    globals: true,
+    environment: "jsdom",
+    setupFiles: ["./tests/setup.ts"],
+  },
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname),
     },
-    resolve:{
-        alias:{
-            "@": path.resolve(__dirname)
-        },
-    },
+  },
 });
