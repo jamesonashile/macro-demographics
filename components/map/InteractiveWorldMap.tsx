@@ -1,5 +1,7 @@
 "use client";
 
+import React, { useEffect, useState } from "react";
+
 import {
   ComposableMap,
   Geographies,
@@ -7,7 +9,6 @@ import {
   ZoomableGroup,
 } from "react-simple-maps";
 
-import React, { useState } from "react";
 
 import { phaseColours } from "@/lib/mapColours";
 import { countries } from "@/lib/countries-data";
@@ -21,6 +22,8 @@ const geoUrl = "/geo/countries.geojson";
 type Props = {
   onCountryClick?: (countryCode: string) => void;
   selectedCode?: string;
+  zoomToCountry?: (coordinates: [number, number]) => void;
+  center?: [number, number]
 };
 
 type GeoFeature = Feature;
@@ -33,8 +36,19 @@ type GeoFeature = Feature;
   };
   [key: string]: unknown;
 };*/
-export default function InteractiveWorldMap({ onCountryClick }: Props) {
+
+export default function InteractiveWorldMap({
+  onCountryClick,
+  zoomToCountry,
+  center
+}: Props) {
   const [position, setPosition] = useState({ coordinates: [0, 0], zoom: 1 });
+
+  useEffect(()=>{
+    if(center){
+      setPosition({coordinates:center, zoom:4})
+    }
+  }, [center])
 
   const handleZoomIn = () => {
     if (position.zoom >= 4) return;
@@ -83,7 +97,7 @@ export default function InteractiveWorldMap({ onCountryClick }: Props) {
           <Geographies geography={geoUrl}>
             {({ geographies }: { geographies: GeoFeature[] }) =>
               geographies.map((geo) => {
-                if(!geo.properties) return null;
+                if (!geo.properties) return null;
 
                 const code = geo.properties["ISO3166-1-Alpha-2"];
                 const country = countries.find((c) => c.code === code);
@@ -91,8 +105,6 @@ export default function InteractiveWorldMap({ onCountryClick }: Props) {
                 const fill = phase
                   ? phaseColours[phase] ?? "#e5e7eb"
                   : "e5e7eb";
-
-                  
 
                 return (
                   <Geography
@@ -102,8 +114,9 @@ export default function InteractiveWorldMap({ onCountryClick }: Props) {
                       onCountryClick?.(code);
 
                       const centroid = geoCentroid(geo);
-                      if (centroid && centroid.length ===2){
-                        setPosition({ coordinates: centroid as [number, number], zoom:4 });
+                      if (centroid && centroid.length === 2) {
+                        //setPosition({ coordinates: centroid as [number, number], zoom:4 });
+                        zoomToCountry?.(centroid as [number, number]);
                       }
                     }}
                     className="transition-all duration-200"
